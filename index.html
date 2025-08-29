@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>napzakmarket banner</title>
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for a clean look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Apply a nice Korean font */
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+        }
+        /* Style for the toast notification fade-in/out */
+        .toast-fade {
+            transition: opacity 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-[#FAE3FF]">
+
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <!-- Main Content Card -->
+        <div class="w-full max-w-sm mx-auto bg-white rounded-2xl shadow-lg p-8 text-center">
+            
+            <!-- 정사각형 로고 이미지 삽입 예시 -->
+            <div class="mb-6 flex justify-center">
+                <!-- 아래 src에 원하는 로고 이미지 경로를 넣으세요 -->
+                <img src="https://understood-soldier-501.notion.site/image/attachment%3A626a1d34-8892-490a-a6dc-656e4b4cea20%3A%E1%84%82%E1%85%A1%E1%86%B8%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%85%E1%85%A9%E1%84%80%E1%85%A9.webp?table=block&id=25df54d6-45db-80ab-91ee-cdfe9e3f9246&spaceId=9b54201e-cfb2-4709-902b-62d715a17357&width=2000&userId=&cache=v2" alt="납작마켓 로고" class="w-20 h-20 object-cover rounded-xl shadow" style="aspect-ratio: 1 / 1;">
+            </div>
+
+            <!-- Main and Sub Copy -->
+            <h1 class="text-2xl font-bold text-gray-800 mb-2">
+                덕친에게 소문내고,<br>💜 납작에서 같이 거래하자 💜
+            </h1>
+            <p class="text-gray-500 mb-8">
+                스토어 링크를 복사하여, <br> 친구에게 공유해주세요!
+            </p>
+
+            <!-- Action Buttons -->
+            <div class="space-y-4">
+                <button id="ios-copy-btn" 
+                        data-link="https://apps.apple.com/kr/app/%EB%84%A4%EC%9D%B4%EB%B2%84-naver/id393499958"
+                        class="w-full bg-black text-white font-bold py-3 px-5 rounded-xl hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black transition duration-300 ease-in-out transform hover:-translate-y-1">
+                    앱 스토어 다운로드 링크 복사
+                </button>
+                <button id="aos-copy-btn" 
+                        data-link="https://play.google.com/store/apps/details?id=com.nhn.android.search&pcampaignid=web_share"
+                        class="w-full bg-green-500 text-white font-bold py-3 px-5 rounded-xl hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-300 ease-in-out transform hover:-translate-y-1">
+                    플레이 스토어 다운로드 링크 복사
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification for feedback -->
+    <div id="toast" class="toast-fade fixed bottom-10 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-sm py-2 px-4 rounded-full opacity-0">
+        <p id="toast-message"></p>
+    </div>
+
+    <script>
+        // Get references to the buttons and toast element
+        const iosButton = document.getElementById('ios-copy-btn');
+        const aosButton = document.getElementById('aos-copy-btn');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toast-message');
+
+        // This function handles copying text to the clipboard
+        function copyToClipboard(text) {
+            // Create a temporary textarea element to hold the text
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = text;
+            
+            // Style it to be invisible
+            tempTextArea.style.position = 'absolute';
+            tempTextArea.style.left = '-9999px';
+            
+            // Add it to the DOM, select the text, and execute the copy command
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            
+            // Clean up by removing the temporary element
+            document.body.removeChild(tempTextArea);
+        }
+
+        // This function shows a toast notification
+        function showToast(message) {
+            toastMessage.textContent = message;
+            toast.classList.remove('opacity-0'); // Make it visible
+            
+            // Hide the toast after 2 seconds
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 2000);
+        }
+
+        // Add click event listener for the iOS button
+        iosButton.addEventListener('click', () => {
+            const link = iosButton.getAttribute('data-link');
+            copyToClipboard(link);
+            showToast('링크가 복사되었어요!');
+        });
+
+        // Add click event listener for the AOS button
+        aosButton.addEventListener('click', () => {
+            const link = aosButton.getAttribute('data-link');
+            copyToClipboard(link);
+            showToast('링크가 복사되었어요!');
+        });
+    </script>
+
+</body>
+</html>
